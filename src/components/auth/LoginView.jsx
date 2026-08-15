@@ -45,7 +45,7 @@ export const LoginView = () => {
             <div className="brand-icon" style={{ width: '42px', height: '42px' }}>
               <Activity size={24} />
             </div>
-            <span>ChromaLab</span>
+            <span>uDiscovery</span>
           </div>
 
           <h1 style={{ fontSize: '2.2rem', fontWeight: 800, lineHeight: '1.25', marginBottom: '1rem' }}>
@@ -92,7 +92,7 @@ export const LoginView = () => {
         {/* Right Side: Login Card & Demo Quick Access */}
         <div className="card" style={{ padding: '2.25rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', border: '1px solid var(--glass-border)' }}>
           <div style={{ marginBottom: '1.75rem' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Accedi a ChromaLab</h2>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Accedi a uDiscovery</h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Inserisci le tue credenziali per accedere al tuo profilo.</p>
           </div>
 
@@ -108,7 +108,7 @@ export const LoginView = () => {
               <input 
                 type="email" 
                 className="form-input" 
-                placeholder="es. elena.rostova@chromalab.org"
+                placeholder="es. elena.rostova@udiscovery.org"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />

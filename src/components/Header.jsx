@@ -12,7 +12,7 @@ export const Header = () => {
         <div className="brand-icon">
           <Activity size={20} />
         </div>
-        <span>ChromaLab</span>
+        <span>uDiscovery</span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

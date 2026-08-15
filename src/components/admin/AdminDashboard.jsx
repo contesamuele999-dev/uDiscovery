@@ -250,7 +250,7 @@ export const AdminDashboard = ({ activeTab }) => {
                   <input 
                     type="email" 
                     className="form-input" 
-                    placeholder="es. marco.rossi@chromalab.org" 
+                    placeholder="es. marco.rossi@udiscovery.org" 
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required

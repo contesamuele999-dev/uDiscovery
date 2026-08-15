@@ -3,9 +3,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AppContext = createContext();
 
 const INITIAL_USERS = [
-  { id: 'usr_admin', name: 'Dr. Alessandro Vardi', email: 'admin@chromalab.org', password: 'admin123', role: 'admin', avatar: '👨‍💼', status: 'attivo', dateAdded: '2026-01-10' },
-  { id: 'usr_res1', name: 'Dr. Elena Rostova', email: 'elena.rostova@chromalab.org', password: 'research123', role: 'researcher', avatar: '👩‍🔬', institution: 'Istituto di Neuroscienze Cromatiche', status: 'attivo', dateAdded: '2026-01-15' },
-  { id: 'usr_res2', name: 'Dr. Marco Bellini', email: 'marco.bellini@chromalab.org', password: 'research123', role: 'researcher', avatar: '👨‍🔬', institution: 'Dipartimento di Psicologia dello Sport', status: 'attivo', dateAdded: '2026-02-01' },
+  { id: 'usr_admin', name: 'Dr. Alessandro Vardi', email: 'admin@udiscovery.org', password: 'admin123', role: 'admin', avatar: '👨‍💼', status: 'attivo', dateAdded: '2026-01-10' },
+  { id: 'usr_res1', name: 'Dr. Elena Rostova', email: 'elena.rostova@udiscovery.org', password: 'research123', role: 'researcher', avatar: '👩‍🔬', institution: 'Istituto di Neuroscienze Cromatiche', status: 'attivo', dateAdded: '2026-01-15' },
+  { id: 'usr_res2', name: 'Dr. Marco Bellini', email: 'marco.bellini@udiscovery.org', password: 'research123', role: 'researcher', avatar: '👨‍🔬', institution: 'Dipartimento di Psicologia dello Sport', status: 'attivo', dateAdded: '2026-02-01' },
   { id: 'usr_test1', name: 'Sofia Rossi', email: 'sofia.rossi@example.com', password: 'tester123', role: 'tester', avatar: '👩', age: 28, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-10' },
   { id: 'usr_test2', name: 'Matteo Bianchi', email: 'matteo.b@example.com', password: 'tester123', role: 'tester', avatar: '👨', age: 34, condition: 'Gruppo B - Allenamento Motorio', status: 'attivo', dateAdded: '2026-02-12' },
   { id: 'usr_test3', name: 'Giulia Verdi', email: 'giulia.v@example.com', password: 'tester123', role: 'tester', avatar: '👩‍🦰', age: 24, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-15' },
@@ -15,7 +15,7 @@ const INITIAL_STUDIES = [
   {
     id: 'std_1',
     title: 'Studio Cromatico-Fisiologico su Fatica e Percezione Visiva',
-    code: 'CHROMA-2026-01',
+    code: 'UDISCOVERY-2026-01',
     researcherId: 'usr_res1',
     researcherName: 'Dr. Elena Rostova',
     abstract: 'Analisi longitudinale sull\'impatto degli esercizi fisici e di respirazione ad alta intensità sulla percezione cromatica intuitiva e sullo sforzo percepito nei soggetti adulti.',
@@ -39,7 +39,7 @@ const INITIAL_STUDIES = [
   {
     id: 'std_2',
     title: 'Studio Cognitivo su Memoria Visiva e Variazione Croma',
-    code: 'CHROMA-2026-02',
+    code: 'UDISCOVERY-2026-02',
     researcherId: 'usr_res2',
     researcherName: 'Dr. Marco Bellini',
     abstract: 'Monitoraggio settimanale della concentrazione visivo-spaziale e preferenza di saturazione cromatica in compiti di memorizzazione a intervalli regolari.',
@@ -189,78 +189,76 @@ const INITIAL_NOTES = [
 ];
 
 const INITIAL_LOGS = [
-  { id: 'log_1', timestamp: '2026-08-14T15:00:00Z', user: 'Dr. Alessandro Vardi', action: 'Sistema avviato', details: 'Piattaforma ChromaLab pronta' },
-  { id: 'log_2', timestamp: '2026-08-14T16:20:00Z', user: 'Dr. Elena Rostova', action: 'Aggiornamento Studio', details: 'Modificato schema CHROMA-2026-01' }
+  { id: 'log_1', timestamp: '2026-08-14T15:00:00Z', user: 'Dr. Alessandro Vardi', action: 'Sistema avviato', details: 'Piattaforma uDiscovery pronta' },
+  { id: 'log_2', timestamp: '2026-08-14T16:20:00Z', user: 'Dr. Elena Rostova', action: 'Aggiornamento Studio', details: 'Modificato schema UDISCOVERY-2026-01' }
 ];
 
 export const AppProvider = ({ children }) => {
   const [users, setUsers] = useState(() => {
-    const saved = localStorage.getItem('chromalab_users');
+    const saved = localStorage.getItem('udiscovery_users');
     return saved ? JSON.parse(saved) : INITIAL_USERS;
   });
 
   const [studies, setStudies] = useState(() => {
-    const saved = localStorage.getItem('chromalab_studies');
+    const saved = localStorage.getItem('udiscovery_studies');
     return saved ? JSON.parse(saved) : INITIAL_STUDIES;
   });
 
   const [submissions, setSubmissions] = useState(() => {
-    const saved = localStorage.getItem('chromalab_submissions');
+    const saved = localStorage.getItem('udiscovery_submissions');
     return saved ? JSON.parse(saved) : INITIAL_SUBMISSIONS;
   });
 
   const [notes, setNotes] = useState(() => {
-    const saved = localStorage.getItem('chromalab_notes');
+    const saved = localStorage.getItem('udiscovery_notes');
     return saved ? JSON.parse(saved) : INITIAL_NOTES;
   });
 
   const [auditLogs, setAuditLogs] = useState(() => {
-    const saved = localStorage.getItem('chromalab_logs');
+    const saved = localStorage.getItem('udiscovery_logs');
     return saved ? JSON.parse(saved) : INITIAL_LOGS;
   });
 
-  // Authentication State
   const [activeUser, setActiveUser] = useState(() => {
-    const savedUser = localStorage.getItem('chromalab_active_user');
+    const savedUser = localStorage.getItem('udiscovery_active_user');
     if (savedUser) return JSON.parse(savedUser);
-    return null; // Null means not logged in by default
+    return null;
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('chromalab_auth_status') === 'true';
+    return localStorage.getItem('udiscovery_auth_status') === 'true';
   });
 
   useEffect(() => {
-    localStorage.setItem('chromalab_users', JSON.stringify(users));
+    localStorage.setItem('udiscovery_users', JSON.stringify(users));
   }, [users]);
 
   useEffect(() => {
-    localStorage.setItem('chromalab_studies', JSON.stringify(studies));
+    localStorage.setItem('udiscovery_studies', JSON.stringify(studies));
   }, [studies]);
 
   useEffect(() => {
-    localStorage.setItem('chromalab_submissions', JSON.stringify(submissions));
+    localStorage.setItem('udiscovery_submissions', JSON.stringify(submissions));
   }, [submissions]);
 
   useEffect(() => {
-    localStorage.setItem('chromalab_notes', JSON.stringify(notes));
+    localStorage.setItem('udiscovery_notes', JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {
-    localStorage.setItem('chromalab_logs', JSON.stringify(auditLogs));
+    localStorage.setItem('udiscovery_logs', JSON.stringify(auditLogs));
   }, [auditLogs]);
 
   useEffect(() => {
     if (activeUser) {
-      localStorage.setItem('chromalab_active_user', JSON.stringify(activeUser));
-      localStorage.setItem('chromalab_auth_status', 'true');
+      localStorage.setItem('udiscovery_active_user', JSON.stringify(activeUser));
+      localStorage.setItem('udiscovery_auth_status', 'true');
     } else {
-      localStorage.removeItem('chromalab_active_user');
-      localStorage.setItem('chromalab_auth_status', 'false');
+      localStorage.removeItem('udiscovery_active_user');
+      localStorage.setItem('udiscovery_auth_status', 'false');
     }
   }, [activeUser]);
 
-  // Auth Methods
   const login = (email, password) => {
     const foundUser = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
     if (!foundUser) {
@@ -326,7 +324,7 @@ export const AppProvider = ({ children }) => {
     const newStudy = {
       ...studyData,
       id: `std_${Date.now()}`,
-      code: `CHROMA-2026-${studies.length + 1}`,
+      code: `UDISCOVERY-2026-${studies.length + 1}`,
       researcherId: activeUser.id,
       researcherName: activeUser.name,
       status: 'in_corso',

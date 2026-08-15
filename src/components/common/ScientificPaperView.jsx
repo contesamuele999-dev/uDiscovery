@@ -12,7 +12,6 @@ export const ScientificPaperView = ({ study, onBack }) => {
     window.print();
   };
 
-  // Color distribution calculation
   const colorCounts = {};
   studySubmissions.forEach(sub => {
     const c = sub.selectedColor || '#3b82f6';
@@ -42,11 +41,11 @@ export const ScientificPaperView = ({ study, onBack }) => {
       <div className="paper-container">
         <div className="paper-header">
           <div className="paper-journal-meta">
-            JOURNAL OF CHROMATIC NEUROSCIENCE & HUMAN BEHAVIOR • VOL. 14, NO. 2, 2026
+            JOURNAL OF CHROMATIC NEUROSCIENCE & HUMAN BEHAVIOR • UDISCOVERY RESEARCH • VOL. 14, NO. 2, 2026
           </div>
           <h1 className="paper-title">{study.title}</h1>
           <div className="paper-authors">
-            {study.researcherName}<sup>1*</sup>, ChromaLab Research Team<sup>1</sup>
+            {study.researcherName}<sup>1*</sup>, uDiscovery Research Team<sup>1</sup>
           </div>
           <div className="paper-affiliation">
             <sup>1</sup> Istituto di Neuroscienze Cromatiche & Laboratorio di Psicologia dello Sport, Milano, Italia
@@ -60,7 +59,7 @@ export const ScientificPaperView = ({ study, onBack }) => {
           <div className="paper-abstract-title">Abstract</div>
           <p>{study.abstract}</p>
           <div className="paper-keywords">
-            <strong>Parole chiave:</strong> Tracciamento Cromatico, Fisiologia dell'Esercizio, Perfezione dello Sforzo (RPE), Monitoraggio Longitudinale, Neuroestetica.
+            <strong>Parole chiave:</strong> uDiscovery, Tracciamento Cromatico, Fisiologia dell'Esercizio, Perfezione dello Sforzo (RPE), Monitoraggio Longitudinale, Neuroestetica.
           </div>
         </div>
 
@@ -169,7 +168,7 @@ export const ScientificPaperView = ({ study, onBack }) => {
         <div className="paper-section">
           <h2 className="paper-section-title">5. Conclusione & Sviluppi Futuri</h2>
           <p className="paper-paragraph">
-            I dati raccolti confermano l'efficacia del monitoraggio cromatico accoppiato all'esercizio per identificare risposte di recupero psiconervoso. 
+            I dati raccolti tramite uDiscovery confermano l'efficacia del monitoraggio cromatico accoppiato all'esercizio per identificare risposte di recupero psiconervoso. 
             Si raccomanda l'estensione del campione di tester e il proseguimento del protocollo con cadenza {study.frequency}.
           </p>
         </div>

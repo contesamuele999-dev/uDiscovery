@@ -1,7 +1,7 @@
 @echo off
-title ChromaLab - Auto Push Git
+title uDiscovery - Auto Push Git
 echo ========================================================
-echo        ChromaLab - Auto Push su GitHub
+echo        uDiscovery - Auto Push su GitHub
 echo ========================================================
 echo.
 
@@ -12,7 +12,7 @@ git add .
 
 echo.
 echo [2/3] Creazione commit...
-git commit -m "Auto update ChromaLab"
+git commit -m "Auto update uDiscovery"
 
 echo.
 echo [3/3] Push su GitHub (git push)...
