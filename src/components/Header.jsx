@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Activity, LogOut, User, Users, RefreshCw } from 'lucide-react';
+import { Activity, LogOut, Users } from 'lucide-react';
 
 export const Header = () => {
-  const { users, activeUser, switchRoleUser, logout, resetAllData } = useApp();
+  const { users, activeUser, switchRoleUser, logout } = useApp();
   const [showSwitchModal, setShowSwitchModal] = useState(false);
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { LayoutDashboard, Users, ShieldAlert, BookOpen, BarChart2, FileText, CheckCircle2, History } from 'lucide-react';
+import { Users, ShieldAlert, BookOpen, BarChart2, FileText, CheckCircle2, History } from 'lucide-react';
 
 export const Navigation = ({ activeTab, setActiveTab }) => {
   const { activeUser } = useApp();
@@ -56,7 +56,6 @@ export const Navigation = ({ activeTab, setActiveTab }) => {
     );
   }
 
-  // Tester role
   return (
     <nav className="nav-bar">
       <button 

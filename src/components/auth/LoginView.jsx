@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Activity, Lock, Mail, Shield, BookOpen, Users, LogIn, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Activity, Lock, Mail, Shield, BookOpen, Users, LogIn, Sparkles } from 'lucide-react';
 
 export const LoginView = () => {
   const { login, quickLogin, users } = useApp();

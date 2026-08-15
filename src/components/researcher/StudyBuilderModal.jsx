@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { PlusCircle, Trash2, Calendar, Sliders, Palette, Dumbbell } from 'lucide-react';
+import { Sliders, Palette, Dumbbell } from 'lucide-react';
 
 export const StudyBuilderModal = ({ onClose, onCreated }) => {
   const { users, createStudy } = useApp();

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { QuestionnaireFormModal } from './QuestionnaireFormModal';
-import { CheckCircle2, Clock, Calendar, Flame, History, Award, ArrowRight, Palette, Dumbbell } from 'lucide-react';
+import { CheckCircle2, Flame, History, Award, ArrowRight } from 'lucide-react';
 
 export const TesterPortal = ({ activeTab }) => {
   const { studies, submissions, activeUser } = useApp();
   const [selectedStudyToFill, setSelectedStudyToFill] = useState(null);
 
-  // Filter studies assigned to active tester
   const myStudies = studies.filter(s => (s.assignedTesters || []).includes(activeUser.id));
   const mySubmissions = submissions.filter(s => s.testerId === activeUser.id);
-
-  // Calculate streak
   const streakDays = mySubmissions.length > 0 ? mySubmissions.length : 1;
 
   if (activeTab === 'history') {
@@ -81,7 +78,6 @@ export const TesterPortal = ({ activeTab }) => {
 
   return (
     <div>
-      {/* Welcome Banner */}
       <div className="card" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15))', border: '1px solid rgba(59, 130, 246, 0.3)', marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>

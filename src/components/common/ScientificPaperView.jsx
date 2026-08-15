@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Printer, Download, Share2, ArrowLeft, CheckCircle } from 'lucide-react';
+import { Printer, ArrowLeft } from 'lucide-react';
 import '../../styles/paper.css';
 
 export const ScientificPaperView = ({ study, onBack }) => {
