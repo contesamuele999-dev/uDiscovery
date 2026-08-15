@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Activity, LogOut, Users } from 'lucide-react';
+import { LogOut, Users } from 'lucide-react';
 
 export const Header = () => {
   const { users, activeUser, switchRoleUser, logout } = useApp();
@@ -9,8 +9,8 @@ export const Header = () => {
   return (
     <header className="main-header">
       <div className="header-brand">
-        <div className="brand-icon">
-          <Activity size={20} />
+        <div className="brand-icon" style={{ padding: '2px', background: 'transparent', boxShadow: 'none' }}>
+          <img src="./favicon.svg" alt="uDiscovery Logo" style={{ width: '32px', height: '32px', borderRadius: '8px' }} />
         </div>
         <span>uDiscovery</span>
       </div>

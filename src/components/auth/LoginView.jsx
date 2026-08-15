@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Activity, Lock, Mail, Shield, BookOpen, Users, LogIn, Sparkles } from 'lucide-react';
+import { Lock, Mail, Shield, BookOpen, Users, LogIn, Sparkles } from 'lucide-react';
 
 export const LoginView = () => {
   const { login, quickLogin, users } = useApp();
@@ -42,8 +42,8 @@ export const LoginView = () => {
         {/* Left Side: Brand & Feature Highlights */}
         <div>
           <div className="header-brand" style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>
-            <div className="brand-icon" style={{ width: '42px', height: '42px' }}>
-              <Activity size={24} />
+            <div className="brand-icon" style={{ width: '46px', height: '46px', padding: '0', background: 'transparent', boxShadow: 'none' }}>
+              <img src="./favicon.svg" alt="uDiscovery Logo" style={{ width: '46px', height: '46px', borderRadius: '12px' }} />
             </div>
             <span>uDiscovery</span>
           </div>
