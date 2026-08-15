@@ -3,12 +3,12 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AppContext = createContext();
 
 const INITIAL_USERS = [
-  { id: 'usr_admin', name: 'Dr. Alessandro Vardi', email: 'admin@chromalab.org', role: 'admin', avatar: '👨‍💼', status: 'attivo', dateAdded: '2026-01-10' },
-  { id: 'usr_res1', name: 'Dr. Elena Rostova', email: 'elena.rostova@chromalab.org', role: 'researcher', avatar: '👩‍🔬', institution: 'Istituto di Neuroscienze Cromatiche', status: 'attivo', dateAdded: '2026-01-15' },
-  { id: 'usr_res2', name: 'Dr. Marco Bellini', email: 'marco.bellini@chromalab.org', role: 'researcher', avatar: '👨‍🔬', institution: 'Dipartimento di Psicologia dello Sport', status: 'attivo', dateAdded: '2026-02-01' },
-  { id: 'usr_test1', name: 'Sofia Rossi', email: 'sofia.rossi@example.com', role: 'tester', avatar: '👩', age: 28, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-10' },
-  { id: 'usr_test2', name: 'Matteo Bianchi', email: 'matteo.b@example.com', role: 'tester', avatar: '👨', age: 34, condition: 'Gruppo B - Allenamento Motorio', status: 'attivo', dateAdded: '2026-02-12' },
-  { id: 'usr_test3', name: 'Giulia Verdi', email: 'giulia.v@example.com', role: 'tester', avatar: '👩‍🦰', age: 24, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-15' },
+  { id: 'usr_admin', name: 'Dr. Alessandro Vardi', email: 'admin@chromalab.org', password: 'admin123', role: 'admin', avatar: '👨‍💼', status: 'attivo', dateAdded: '2026-01-10' },
+  { id: 'usr_res1', name: 'Dr. Elena Rostova', email: 'elena.rostova@chromalab.org', password: 'research123', role: 'researcher', avatar: '👩‍🔬', institution: 'Istituto di Neuroscienze Cromatiche', status: 'attivo', dateAdded: '2026-01-15' },
+  { id: 'usr_res2', name: 'Dr. Marco Bellini', email: 'marco.bellini@chromalab.org', password: 'research123', role: 'researcher', avatar: '👨‍🔬', institution: 'Dipartimento di Psicologia dello Sport', status: 'attivo', dateAdded: '2026-02-01' },
+  { id: 'usr_test1', name: 'Sofia Rossi', email: 'sofia.rossi@example.com', password: 'tester123', role: 'tester', avatar: '👩', age: 28, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-10' },
+  { id: 'usr_test2', name: 'Matteo Bianchi', email: 'matteo.b@example.com', password: 'tester123', role: 'tester', avatar: '👨', age: 34, condition: 'Gruppo B - Allenamento Motorio', status: 'attivo', dateAdded: '2026-02-12' },
+  { id: 'usr_test3', name: 'Giulia Verdi', email: 'giulia.v@example.com', password: 'tester123', role: 'tester', avatar: '👩‍🦰', age: 24, condition: 'Gruppo A - Esercizi Respiratori', status: 'attivo', dateAdded: '2026-02-15' },
 ];
 
 const INITIAL_STUDIES = [
@@ -219,7 +219,16 @@ export const AppProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : INITIAL_LOGS;
   });
 
-  const [activeUser, setActiveUser] = useState(() => users.find(u => u.role === 'researcher') || users[1]);
+  // Authentication State
+  const [activeUser, setActiveUser] = useState(() => {
+    const savedUser = localStorage.getItem('chromalab_active_user');
+    if (savedUser) return JSON.parse(savedUser);
+    return null; // Null means not logged in by default
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('chromalab_auth_status') === 'true';
+  });
 
   useEffect(() => {
     localStorage.setItem('chromalab_users', JSON.stringify(users));
@@ -241,10 +250,57 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('chromalab_logs', JSON.stringify(auditLogs));
   }, [auditLogs]);
 
+  useEffect(() => {
+    if (activeUser) {
+      localStorage.setItem('chromalab_active_user', JSON.stringify(activeUser));
+      localStorage.setItem('chromalab_auth_status', 'true');
+    } else {
+      localStorage.removeItem('chromalab_active_user');
+      localStorage.setItem('chromalab_auth_status', 'false');
+    }
+  }, [activeUser]);
+
+  // Auth Methods
+  const login = (email, password) => {
+    const foundUser = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
+    if (!foundUser) {
+      return { success: false, error: 'Nessun account trovato con questa email.' };
+    }
+    if (foundUser.status === 'sospeso') {
+      return { success: false, error: 'Questo account è stato temporaneamente sospeso dall\'amministratore.' };
+    }
+    if (foundUser.password && foundUser.password !== password) {
+      return { success: false, error: 'Password errata. Riprova.' };
+    }
+    
+    setActiveUser(foundUser);
+    setIsAuthenticated(true);
+    addAuditLog(foundUser.name, 'Accesso Login', `Utente autenticato come ${foundUser.role.toUpperCase()}`);
+    return { success: true, user: foundUser };
+  };
+
+  const quickLogin = (userId) => {
+    const targetUser = users.find(u => u.id === userId);
+    if (targetUser) {
+      setActiveUser(targetUser);
+      setIsAuthenticated(true);
+      addAuditLog(targetUser.name, 'Quick Login Demo', `Accesso rapido demo come ${targetUser.role.toUpperCase()}`);
+    }
+  };
+
+  const logout = () => {
+    if (activeUser) {
+      addAuditLog(activeUser.name, 'Disconnessione', 'Utente disconnesso dal sistema');
+    }
+    setActiveUser(null);
+    setIsAuthenticated(false);
+  };
+
   const switchRoleUser = (userId) => {
     const user = users.find(u => u.id === userId);
     if (user) {
       setActiveUser(user);
+      setIsAuthenticated(true);
     }
   };
 
@@ -252,17 +308,18 @@ export const AppProvider = ({ children }) => {
     const userWithId = {
       ...newUser,
       id: `usr_${Date.now()}`,
+      password: newUser.password || 'password123',
       dateAdded: new Date().toISOString().split('T')[0],
       status: 'attivo'
     };
     setUsers(prev => [userWithId, ...prev]);
-    addAuditLog(activeUser.name, 'Creazione Utente', `Creato nuovo utente ${userWithId.name} (${userWithId.role})`);
+    addAuditLog(activeUser?.name || 'Sistema', 'Creazione Utente', `Creato nuovo utente ${userWithId.name} (${userWithId.role})`);
     return userWithId;
   };
 
   const toggleUserStatus = (userId) => {
     setUsers(prev => prev.map(u => u.id === userId ? { ...u, status: u.status === 'attivo' ? 'sospeso' : 'attivo' } : u));
-    addAuditLog(activeUser.name, 'Modifica Stato Utente', `Cambiato stato per utente ID ${userId}`);
+    addAuditLog(activeUser?.name || 'Admin', 'Modifica Stato Utente', `Cambiato stato per utente ID ${userId}`);
   };
 
   const createStudy = (studyData) => {
@@ -309,7 +366,7 @@ export const AppProvider = ({ children }) => {
       }
       return s;
     }));
-    addAuditLog(activeUser.name, 'Rifiuto Tester', `Rimosso tester ${testerId} dallo studio ${studyId}`);
+    addAuditLog(activeUser.name, 'Rimozione Tester', `Rimosso tester ${testerId} dallo studio ${studyId}`);
   };
 
   const addSubmission = (subData) => {
@@ -358,6 +415,7 @@ export const AppProvider = ({ children }) => {
     setAuditLogs(INITIAL_LOGS);
     localStorage.clear();
     setActiveUser(INITIAL_USERS[1]);
+    setIsAuthenticated(true);
   };
 
   return (
@@ -368,6 +426,10 @@ export const AppProvider = ({ children }) => {
       notes,
       auditLogs,
       activeUser,
+      isAuthenticated,
+      login,
+      quickLogin,
+      logout,
       switchRoleUser,
       addUser,
       toggleUserStatus,

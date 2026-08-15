@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
+import { LoginView } from './components/auth/LoginView';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { ResearcherDashboard } from './components/researcher/ResearcherDashboard';
 import { TesterPortal } from './components/tester/TesterPortal';
 import './styles/main.css';
 
 const AppContent = () => {
-  const { activeUser } = useApp();
+  const { activeUser, isAuthenticated } = useApp();
   const role = activeUser?.role || 'researcher';
 
   // Active sub-tab state
@@ -24,6 +25,10 @@ const AppContent = () => {
     else if (role === 'researcher') setActiveTab('studies');
     else setActiveTab('today');
   }, [role]);
+
+  if (!isAuthenticated || !activeUser) {
+    return <LoginView />;
+  }
 
   return (
     <div className="app-container">
