@@ -1,4 +1,4 @@
-/* Scientific Paper Export Stylesheet */
+/* Scientific Paper Export Stylesheet - uDiscovery */
 
 .paper-container {
   background: #ffffff;
@@ -8,11 +8,63 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   font-family: 'Times New Roman', Times, Georgia, serif;
   line-height: 1.6;
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   width: 100%;
   box-sizing: border-box;
+}
+
+.paper-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.paper-edit-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #0f172a;
+}
+
+.paper-edit-field {
+  margin-bottom: 1.25rem;
+}
+
+.paper-edit-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.paper-edit-input, .paper-edit-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.paper-edit-input:focus, .paper-edit-textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .paper-header {
@@ -29,6 +81,7 @@
   letter-spacing: 0.1em;
   color: #666;
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .paper-title {
@@ -88,7 +141,7 @@
 
 /* Paper Sections */
 .paper-section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
 }
 
 .paper-section-title {
@@ -108,49 +161,106 @@
   font-size: 1.05rem;
 }
 
-.paper-grid-figures {
+/* Statistical Cards Grid inside Paper */
+.paper-stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 1.5rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0;
 }
 
+.paper-stat-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.85rem 0.6rem;
+  text-align: center;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.paper-stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.paper-stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* Scientific Figures & Embedded Charts */
 .paper-figure {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
+  padding: 1.25rem;
+  border-radius: 10px;
+  margin: 1.75rem 0;
+  page-break-inside: avoid;
+}
+
+.paper-figure-title {
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .paper-caption {
   font-family: sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #475569;
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
+  line-height: 1.4;
+  text-align: left;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 0.5rem;
 }
 
-/* Paper Table */
+/* Chart Canvas & SVG Container */
+.paper-chart-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Paper Tables */
+.paper-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0;
+}
+
 .paper-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: 0.9rem;
-  min-width: 500px;
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+  min-width: 580px;
 }
 
 .paper-table th {
   border-top: 2px solid #1a1a1a;
   border-bottom: 1px solid #1a1a1a;
-  padding: 0.5rem;
+  padding: 0.6rem 0.5rem;
   text-align: left;
   font-family: sans-serif;
   font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #0f172a;
 }
 
 .paper-table td {
-  padding: 0.5rem;
+  padding: 0.6rem 0.5rem;
   border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
 }
 
 .paper-table tr:last-child td {
@@ -166,16 +276,11 @@
   }
 
   .paper-title {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .paper-authors {
     font-size: 0.95rem;
-  }
-
-  .paper-grid-figures {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
   .paper-paragraph {
@@ -184,10 +289,8 @@
     font-size: 0.95rem;
   }
 
-  .paper-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 1rem 0;
+  .paper-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -198,7 +301,7 @@
     color: #000000 !important;
   }
 
-  .main-header, .nav-bar, .paper-actions-bar {
+  .main-header, .nav-bar, .paper-toolbar, .paper-edit-box {
     display: none !important;
   }
 
@@ -206,5 +309,15 @@
     box-shadow: none !important;
     padding: 0 !important;
     max-width: 100% !important;
+    font-size: 11pt !important;
+  }
+
+  .paper-figure {
+    border: 1px solid #cccccc !important;
+    break-inside: avoid;
+  }
+
+  .paper-table {
+    font-size: 9pt !important;
   }
 }
