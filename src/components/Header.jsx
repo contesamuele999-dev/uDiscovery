@@ -9,18 +9,18 @@ export const Header = () => {
   return (
     <header className="main-header">
       <div className="header-brand">
-        <div className="brand-icon" style={{ padding: '2px', background: 'transparent', boxShadow: 'none' }}>
+        <div className="brand-icon">
           <img src="./favicon.svg" alt="uDiscovery Logo" style={{ width: '32px', height: '32px', borderRadius: '8px' }} />
         </div>
         <span>uDiscovery</span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-card)', padding: '0.4rem 0.8rem', borderRadius: '9999px', border: '1px solid var(--border-color)' }}>
-          <span style={{ fontSize: '1.2rem' }}>{activeUser?.avatar || '👤'}</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="header-user-badge">
+          <span style={{ fontSize: '1.1rem' }}>{activeUser?.avatar || '👤'}</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.1 }}>{activeUser?.name}</span>
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{activeUser?.email}</span>
+            <span className="header-user-name" style={{ fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.1 }}>{activeUser?.name}</span>
+            <span className="header-user-email" style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{activeUser?.email}</span>
           </div>
           <span className={`role-badge ${activeUser?.role}`}>
             {activeUser?.role}
@@ -31,16 +31,18 @@ export const Header = () => {
           className="btn btn-secondary btn-sm"
           onClick={() => setShowSwitchModal(true)}
           title="Cambia Utente / Ruolo"
+          style={{ padding: '0.4rem 0.6rem' }}
         >
-          <Users size={14} /> Cambia Ruolo
+          <Users size={14} /> <span className="btn-text-desktop">Ruolo</span>
         </button>
 
         <button 
           className="btn btn-danger btn-sm"
           onClick={logout}
           title="Disconnetti dal sistema"
+          style={{ padding: '0.4rem 0.6rem' }}
         >
-          <LogOut size={14} /> Disconnetti
+          <LogOut size={14} /> <span className="btn-text-desktop">Esci</span>
         </button>
       </div>
 

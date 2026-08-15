@@ -48,7 +48,7 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
         spread: 70,
         origin: { y: 0.6 }
       });
-    } catch (e) {
+    } catch {
       // fallback if confetti canvas fails
     }
 
@@ -61,22 +61,22 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
       <div className="modal-card">
         <div className="modal-header">
           <div>
-            <h2 className="modal-title">Compilazione Questionario Studio</h2>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{study.title} ({study.code})</div>
+            <h2 className="modal-title">Compilazione Questionario</h2>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{study.title} ({study.code})</div>
           </div>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
             {schema.hasExerciseLog && (
               <div className="card" style={{ background: 'var(--bg-input)' }}>
-                <h4 style={{ fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Dumbbell className="text-blue-400" size={18} /> Esercizio Fisico / Cognitivo Effettuato
+                <h4 style={{ fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
+                  <Dumbbell className="text-blue-400" size={16} /> Esercizio Praticato
                 </h4>
 
                 <div className="form-group">
-                  <label className="form-label">Seleziona Tipo di Esercizio</label>
+                  <label className="form-label">Tipo di Esercizio</label>
                   <select 
                     className="form-select"
                     value={exerciseType}
@@ -89,7 +89,7 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
                 </div>
 
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Durata dell'Esercizio: <strong>{exerciseDuration} minuti</strong></label>
+                  <label className="form-label">Durata: <strong>{exerciseDuration} minuti</strong></label>
                   <input 
                     type="range" 
                     min="5" 
@@ -105,16 +105,16 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
 
             {schema.hasColorPicker && (
               <div className="card" style={{ background: 'var(--bg-input)' }}>
-                <h4 style={{ fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Palette className="text-purple-400" size={18} /> Selezione Colore / Stato Percepito
+                <h4 style={{ fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
+                  <Palette className="text-purple-400" size={16} /> Selezione Colore Post-Esercizio
                 </h4>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                  Scegli il colore che rappresenta meglio la tua sensazione o percezione visiva post-esercizio.
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                  Scegli il colore che rappresenta la tua sensazione o percezione visiva.
                 </p>
 
                 <div className="color-swatch-picker">
                   <div className="color-preview-box" style={{ backgroundColor: selectedColor }}></div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, width: '100%' }}>
                     <input 
                       type="color" 
                       value={selectedColor} 
@@ -122,14 +122,14 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
                         setSelectedColor(e.target.value);
                         setColorName(`Tonalità custom ${e.target.value}`);
                       }}
-                      style={{ width: '100%', height: '36px', border: 'none', cursor: 'pointer', borderRadius: '6px', background: 'transparent' }}
+                      style={{ width: '100%', height: '38px', border: 'none', cursor: 'pointer', borderRadius: '6px', background: 'transparent' }}
                     />
-                    <div style={{ fontSize: '0.85rem', fontWeight: 600, marginTop: '0.25rem' }}>{colorName}</div>
+                    <div style={{ fontSize: '0.82rem', fontWeight: 600, marginTop: '0.25rem' }}>{colorName}</div>
                   </div>
                 </div>
 
                 <div style={{ marginTop: '0.75rem' }}>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>Palette Tonalità Suggerite:</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>Palette Suggerita:</div>
                   <div className="color-preset-pills">
                     {PRESET_COLORS.map(p => (
                       <button 
@@ -148,13 +148,13 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
 
             {schema.hasRatingScale && (
               <div className="card" style={{ background: 'var(--bg-input)' }}>
-                <h4 style={{ fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Star className="text-amber-400" size={18} /> {schema.ratingLabel || 'Valutazione Sforzo (1-10)'}
+                <h4 style={{ fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
+                  <Star className="text-amber-400" size={16} /> {schema.ratingLabel || 'Valutazione Sforzo (1-10)'}
                 </h4>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Minimo (1)</span>
-                  <span className="status-pill active" style={{ fontSize: '1rem', fontWeight: 800 }}>Punteggio: {rating} / 10</span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Massimo (10)</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Min (1)</span>
+                  <span className="status-pill active" style={{ fontSize: '0.9rem', fontWeight: 800 }}>Punteggio: {rating} / 10</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Max (10)</span>
                 </div>
                 <input 
                   type="range" 
@@ -168,7 +168,7 @@ export const QuestionnaireFormModal = ({ study, onClose, onSubmitted }) => {
             )}
 
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label"><MessageSquare size={14} style={{ display: 'inline', marginRight: '4px' }} /> Note & Riflessioni del Tester (Opzionale)</label>
+              <label className="form-label"><MessageSquare size={14} style={{ display: 'inline', marginRight: '4px' }} /> Note & Riflessioni (Opzionale)</label>
               <textarea 
                 className="form-textarea" 
                 rows="3" 

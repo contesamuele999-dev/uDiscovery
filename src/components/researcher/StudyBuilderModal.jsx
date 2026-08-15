@@ -102,7 +102,7 @@ export const StudyBuilderModal = ({ onClose, onCreated }) => {
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
               <div className="form-group">
                 <label className="form-label">Categoria Disciplinare</label>
                 <select 
@@ -137,36 +137,37 @@ export const StudyBuilderModal = ({ onClose, onCreated }) => {
                 <Sliders size={18} className="text-blue-400" /> Configurazione Protocollo Questionario
               </h4>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer', background: 'var(--bg-input)', padding: '0.6rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
                   <input 
                     type="checkbox" 
                     checked={formData.schema.hasExerciseLog} 
                     onChange={(e) => setFormData({ ...formData, schema: { ...formData.schema, hasExerciseLog: e.target.checked } })}
                   />
-                  <span><Dumbbell size={14} /> Registro Esercizi & Durata</span>
+                  <span><Dumbbell size={14} style={{ display: 'inline', marginRight: '4px' }} /> Registro Esercizi & Durata</span>
                 </label>
 
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer', background: 'var(--bg-input)', padding: '0.6rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
                   <input 
                     type="checkbox" 
                     checked={formData.schema.hasColorPicker} 
                     onChange={(e) => setFormData({ ...formData, schema: { ...formData.schema, hasColorPicker: e.target.checked } })}
                   />
-                  <span><Palette size={14} /> Selettore Colore / Tono Percepito</span>
+                  <span><Palette size={14} style={{ display: 'inline', marginRight: '4px' }} /> Selettore Colore / Tono</span>
                 </label>
               </div>
 
               {formData.schema.hasExerciseLog && (
                 <div className="form-group">
                   <label className="form-label">Tipi di Esercizio Tracciabili</label>
-                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
                     <input 
                       type="text" 
                       className="form-input" 
                       placeholder="Aggiungi esercizio (es. Pilates, Meditazione)..." 
                       value={newExerciseInput}
                       onChange={(e) => setNewExerciseInput(e.target.value)}
+                      style={{ flex: 1, minWidth: '180px' }}
                     />
                     <button type="button" className="btn btn-secondary" onClick={handleAddExerciseType}>Aggiungi</button>
                   </div>
@@ -178,7 +179,7 @@ export const StudyBuilderModal = ({ onClose, onCreated }) => {
                         <button 
                           type="button" 
                           onClick={() => handleRemoveExerciseType(idx)} 
-                          style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.9rem' }}
+                          style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.9rem', padding: '0 2px' }}
                         >
                           ×
                         </button>
@@ -191,7 +192,7 @@ export const StudyBuilderModal = ({ onClose, onCreated }) => {
 
             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
               <h4 style={{ fontWeight: 700, marginBottom: '0.75rem' }}>Tester Inizialmente Assegnati ({formData.assignedTesters.length})</h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 180px), 1fr))', gap: '0.5rem' }}>
                 {availableTesters.map(t => {
                   const isChecked = formData.assignedTesters.includes(t.id);
                   return (
@@ -211,7 +212,7 @@ export const StudyBuilderModal = ({ onClose, onCreated }) => {
                       }}
                     >
                       <input type="checkbox" checked={isChecked} readOnly />
-                      <span>{t.name}</span>
+                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.name}</span>
                     </div>
                   );
                 })}

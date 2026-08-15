@@ -26,7 +26,7 @@ export const ScientificPaperView = ({ study, onBack }) => {
 
   return (
     <div>
-      <div className="paper-actions-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+      <div className="paper-actions-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
         <button className="btn btn-secondary" onClick={onBack}>
           <ArrowLeft size={16} /> Torna allo Studio
         </button>
@@ -79,7 +79,7 @@ export const ScientificPaperView = ({ study, onBack }) => {
             La frequenza di rilevazione è stata impostata a cadenza <strong>{study.frequency}</strong>. 
             Ogni partecipante ha completato schede di rilevazione standardizzate contenenti:
           </p>
-          <ul style={{ paddingLeft: '2rem', marginBottom: '1rem' }}>
+          <ul style={{ paddingLeft: '1.5rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
             <li>Tracciamento del tipo di esercizio eseguito e della durata effettiva (minuti).</li>
             <li>Selezione intuitiva mediante spettro cromatico a 24-bit (valori HEX/RGB).</li>
             <li>Valutazione dello sforzo percepito (Rating of Perceived Exertion - RPE, scala 1-10).</li>
@@ -97,52 +97,55 @@ export const ScientificPaperView = ({ study, onBack }) => {
           <h3 style={{ fontFamily: 'sans-serif', fontSize: '1rem', marginTop: '1.25rem', marginBottom: '0.5rem' }}>
             Tabella 1. Sintesi dei Log Registrati dai Partecipanti
           </h3>
-          <table className="paper-table">
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Soggetto</th>
-                <th>Esercizio</th>
-                <th>Durata (min)</th>
-                <th>RPE (1-10)</th>
-                <th>Colore Selezionato</th>
-              </tr>
-            </thead>
-            <tbody>
-              {studySubmissions.map(sub => (
-                <tr key={sub.id}>
-                  <td>{sub.date}</td>
-                  <td>{sub.testerName}</td>
-                  <td>{sub.exerciseType}</td>
-                  <td>{sub.exerciseDuration}</td>
-                  <td><strong>{sub.rating}</strong></td>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ 
-                        width: '16px', 
-                        height: '16px', 
-                        borderRadius: '4px', 
-                        backgroundColor: sub.selectedColor,
-                        display: 'inline-block',
-                        border: '1px solid #ccc'
-                      }}></span>
-                      <code>{sub.selectedColor}</code> ({sub.colorName})
-                    </div>
-                  </td>
+          <div className="paper-table-wrapper">
+            <table className="paper-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Soggetto</th>
+                  <th>Esercizio</th>
+                  <th>Durata (min)</th>
+                  <th>RPE (1-10)</th>
+                  <th>Colore Selezionato</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {studySubmissions.map(sub => (
+                  <tr key={sub.id}>
+                    <td>{sub.date}</td>
+                    <td>{sub.testerName}</td>
+                    <td>{sub.exerciseType}</td>
+                    <td>{sub.exerciseDuration}</td>
+                    <td><strong>{sub.rating}</strong></td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ 
+                          width: '16px', 
+                          height: '16px', 
+                          borderRadius: '4px', 
+                          backgroundColor: sub.selectedColor,
+                          display: 'inline-block',
+                          border: '1px solid #ccc',
+                          flexShrink: 0
+                        }}></span>
+                        <code>{sub.selectedColor}</code> ({sub.colorName})
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <div style={{ margin: '1.5rem 0', background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+          <div style={{ margin: '1.25rem 0', background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
             <h4 style={{ fontFamily: 'sans-serif', fontSize: '0.9rem', marginBottom: '0.75rem' }}>
               Distribuzione dei Colori Selezionati dai Tester
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
               {Object.entries(colorCounts).map(([hex, count]) => (
                 <div key={hex} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', fontFamily: 'sans-serif' }}>
-                  <span style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: hex, border: '1px solid #ccc' }}></span>
-                  <span>{hex}: <strong>{count} scelte</strong></span>
+                  <span style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: hex, border: '1px solid #ccc', flexShrink: 0 }}></span>
+                  <span>{hex}: <strong>{count}</strong></span>
                 </div>
               ))}
             </div>
@@ -175,7 +178,7 @@ export const ScientificPaperView = ({ study, onBack }) => {
 
         <div className="paper-section" style={{ borderTop: '1px solid #cbd5e1', paddingTop: '1rem', fontSize: '0.85rem' }}>
           <h3 style={{ fontFamily: 'sans-serif', fontWeight: 700, marginBottom: '0.5rem' }}>Riferimenti Bibliografici</h3>
-          <ol style={{ paddingLeft: '1.5rem' }}>
+          <ol style={{ paddingLeft: '1.25rem' }}>
             <li>Rostova, E. et al. (2025). <em>Chromatic Perception Shifts under Cardiorespiratory Load</em>. Journal of Visual Neurobiology, 32(4), 112-124.</li>
             <li>Bellini, M. (2024). <em>Color Matrix Protocols in Behavioral Subject Tracking</em>. Academic Sports Science Review, 18(1), 45-59.</li>
           </ol>

@@ -5,11 +5,10 @@ import { StudyDetailView } from './StudyDetailView';
 import { BookOpen, PlusCircle, Users, BarChart2, FileText, ArrowRight, Palette } from 'lucide-react';
 
 export const ResearcherDashboard = ({ activeTab }) => {
-  const { studies, submissions, notes, activeUser } = useApp();
+  const { studies, submissions, notes } = useApp();
   const [selectedStudy, setSelectedStudy] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  // Filter studies created by or accessible to researcher
   const myStudies = studies;
 
   if (selectedStudy) {
@@ -21,7 +20,7 @@ export const ResearcherDashboard = ({ activeTab }) => {
       <div>
         <div className="page-header">
           <div>
-            <h1 className="page-title"><BarChart2 className="text-purple-400" /> Matrice CROMATICA & Analisi Piattaforma</h1>
+            <h1 className="page-title"><BarChart2 className="text-purple-400" /> Matrice CROMATICA & Analisi</h1>
             <p className="page-subtitle">Sintesi globale delle risposte dei soggetti e delle variazioni percettive.</p>
           </div>
         </div>
@@ -60,10 +59,10 @@ export const ResearcherDashboard = ({ activeTab }) => {
 
         <div className="card" style={{ marginBottom: '1.5rem' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Panoramica Scelte Cromatiche Aggregate</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
             {submissions.map((sub, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-input)', padding: '0.5rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                <span style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: sub.selectedColor }}></span>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-input)', padding: '0.45rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                <span style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: sub.selectedColor, flexShrink: 0 }}></span>
                 <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{sub.colorName}</span>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>({sub.testerName.split(' ')[0]})</span>
               </div>
@@ -87,12 +86,12 @@ export const ResearcherDashboard = ({ activeTab }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {notes.map(nte => (
             <div key={nte.id} className="card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.4rem' }}>
                 <span className="status-pill active">{nte.category}</span>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{new Date(nte.timestamp).toLocaleString('it-IT')}</span>
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{new Date(nte.timestamp).toLocaleString('it-IT')}</span>
               </div>
-              <p style={{ fontSize: '1rem', lineHeight: '1.5', marginBottom: '0.75rem' }}>"{nte.text}"</p>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+              <p style={{ fontSize: '0.95rem', lineHeight: '1.5', marginBottom: '0.75rem' }}>"{nte.text}"</p>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem' }}>
                 <span>Tester: <strong>{nte.testerName}</strong></span>
                 <span>Ricercatore: {nte.researcherName}</span>
               </div>
@@ -107,7 +106,7 @@ export const ResearcherDashboard = ({ activeTab }) => {
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title"><BookOpen /> I Miei Studi Clinici & Sperimentali</h1>
+          <h1 className="page-title"><BookOpen /> I Miei Studi Clinici</h1>
           <p className="page-subtitle">Crea nuovi studi, configura questionari schedulati ed analizza i progressi dei tester.</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowCreateModal(true)}>
@@ -121,18 +120,18 @@ export const ResearcherDashboard = ({ activeTab }) => {
           return (
             <div key={st.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.4rem' }}>
                   <span className="status-pill active">{st.code}</span>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Cadenza: {st.frequency.toUpperCase()}</span>
                 </div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.5rem' }}>{st.title}</h3>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem' }}>{st.title}</h3>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.25rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {st.abstract}
                 </p>
               </div>
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.85rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
                   <span><Users size={14} style={{ display: 'inline', marginRight: '4px' }} /> Tester: <strong>{st.assignedTesters?.length || 0}</strong></span>
                   <span>Compilazioni: <strong>{subCount}</strong></span>
                 </div>

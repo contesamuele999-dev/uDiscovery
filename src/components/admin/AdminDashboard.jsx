@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Users, UserPlus, Shield, Activity, BookOpen, Search, CheckCircle, XCircle } from 'lucide-react';
+import { Users, UserPlus, Shield, Activity, BookOpen, Search } from 'lucide-react';
 
 export const AdminDashboard = ({ activeTab }) => {
   const { users, studies, submissions, auditLogs, addUser, toggleUserStatus } = useApp();
@@ -86,7 +86,7 @@ export const AdminDashboard = ({ activeTab }) => {
         <div className="grid-cards">
           {studies.map(st => (
             <div key={st.id} className="card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <span className="status-pill active">{st.code}</span>
                 <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Frequenza: {st.frequency}</span>
               </div>
@@ -94,7 +94,7 @@ export const AdminDashboard = ({ activeTab }) => {
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
                 Ricercatore: <strong>{st.researcherName}</strong>
               </p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <span>Tester Iscritti: {st.assignedTesters?.length || 0}</span>
                 <span>Compilazioni: {submissions.filter(sub => sub.studyId === st.id).length}</span>
               </div>
@@ -109,7 +109,7 @@ export const AdminDashboard = ({ activeTab }) => {
     <div>
       <div className="page-header">
         <div>
-          <h1 className="page-title"><Users /> Gestione Utenti & Account (Admin)</h1>
+          <h1 className="page-title"><Users /> Gestione Utenti & Account</h1>
           <p className="page-subtitle">Gestisci gli accessi dei ricercatori e dei tester partecipanti agli studi.</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>
@@ -124,7 +124,7 @@ export const AdminDashboard = ({ activeTab }) => {
           </div>
           <div>
             <div className="stat-value">{users.length}</div>
-            <div className="stat-title">Utenti Totali Registrati</div>
+            <div className="stat-title">Utenti Registrati</div>
           </div>
         </div>
 
@@ -134,7 +134,7 @@ export const AdminDashboard = ({ activeTab }) => {
           </div>
           <div>
             <div className="stat-value">{totalResearchers}</div>
-            <div className="stat-title">Ricercatori Accreditati</div>
+            <div className="stat-title">Ricercatori</div>
           </div>
         </div>
 
@@ -144,7 +144,7 @@ export const AdminDashboard = ({ activeTab }) => {
           </div>
           <div>
             <div className="stat-value">{totalTesters}</div>
-            <div className="stat-title">Tester Partecipanti</div>
+            <div className="stat-title">Tester</div>
           </div>
         </div>
 
@@ -154,19 +154,19 @@ export const AdminDashboard = ({ activeTab }) => {
           </div>
           <div>
             <div className="stat-value">{studies.length}</div>
-            <div className="stat-title">Studi Attivi nel Sistema</div>
+            <div className="stat-title">Studi Attivi</div>
           </div>
         </div>
       </div>
 
       <div className="card" style={{ marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Elenco Account Registrati</h3>
-          <div style={{ position: 'relative', width: '280px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '280px' }}>
             <input 
               type="text" 
               className="form-input" 
-              placeholder="Cerca utente per nome o email..." 
+              placeholder="Cerca utente..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{ paddingLeft: '2.4rem' }}
@@ -192,10 +192,10 @@ export const AdminDashboard = ({ activeTab }) => {
                 <tr key={u.id}>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span style={{ fontSize: '1.5rem' }}>{u.avatar || '👤'}</span>
+                      <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>{u.avatar || '👤'}</span>
                       <div>
                         <div style={{ fontWeight: 700 }}>{u.name}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{u.email}</div>
+                        <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{u.email}</div>
                       </div>
                     </div>
                   </td>

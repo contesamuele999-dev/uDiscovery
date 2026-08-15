@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { ScientificPaperView } from '../common/ScientificPaperView';
-import { ArrowLeft, Users, BarChart2, FileText, FileSpreadsheet, PlusCircle, Trash2, Palette, Activity } from 'lucide-react';
+import { ArrowLeft, Users, BarChart2, FileText, FileSpreadsheet, PlusCircle, Palette, Activity } from 'lucide-react';
 
 export const StudyDetailView = ({ study, onBack }) => {
   const { users, submissions, notes, assignTesterToStudy, removeTesterFromStudy, addResearcherNote } = useApp();
@@ -44,17 +44,17 @@ export const StudyDetailView = ({ study, onBack }) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
         <button className="btn btn-secondary btn-sm" onClick={onBack}>
           <ArrowLeft size={16} /> Torna a Tutti gli Studi
         </button>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <span className="status-pill active">{study.code}</span>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginLeft: '0.75rem' }}>Frequenza: {study.frequency}</span>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Frequenza: {study.frequency}</span>
         </div>
       </div>
 
-      <div className="page-header" style={{ marginBottom: '1.5rem' }}>
+      <div className="page-header" style={{ marginBottom: '1.25rem' }}>
         <div>
           <h1 className="page-title">{study.title}</h1>
           <p className="page-subtitle">Responsabile Studio: {study.researcherName} • Categoria: {study.category}</p>
@@ -71,14 +71,14 @@ export const StudyDetailView = ({ study, onBack }) => {
           className={`tab-pill ${activeTab === 'overview' ? 'active' : ''}`}
           onClick={() => setActiveTab('overview')}
         >
-          <Users size={16} /> Reclutamento Tester ({enrolledTesters.length})
+          <Users size={16} /> Reclutamento ({enrolledTesters.length})
         </button>
 
         <button 
           className={`tab-pill ${activeTab === 'analytics' ? 'active' : ''}`}
           onClick={() => setActiveTab('analytics')}
         >
-          <BarChart2 size={16} /> Matrice CROMATICA & Grafici
+          <BarChart2 size={16} /> Matrice CROMATICA
         </button>
 
         <button 
@@ -91,7 +91,7 @@ export const StudyDetailView = ({ study, onBack }) => {
 
       {/* TAB 1: OVERVIEW & TESTER ENROLLMENT */}
       {activeTab === 'overview' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+        <div className="grid-cards" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))' }}>
           <div className="card">
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Soggetti Tester Attualmente Iscritti</h3>
             {enrolledTesters.length === 0 ? (
@@ -101,12 +101,12 @@ export const StudyDetailView = ({ study, onBack }) => {
                 {enrolledTesters.map(t => {
                   const subCount = studySubmissions.filter(s => s.testerId === t.id).length;
                   return (
-                    <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--bg-input)', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <span style={{ fontSize: '1.5rem' }}>{t.avatar || '👤'}</span>
-                        <div>
-                          <div style={{ fontWeight: 700 }}>{t.name}</div>
-                          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.condition || 'Tester registrato'} • {subCount} compilazioni</div>
+                    <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--bg-input)', borderRadius: '10px', border: '1px solid var(--border-color)', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: 0 }}>
+                        <span style={{ fontSize: '1.3rem', flexShrink: 0 }}>{t.avatar || '👤'}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontWeight: 700, fontSize: '0.85rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.name}</div>
+                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{subCount} compilazioni</div>
                         </div>
                       </div>
                       <button className="btn btn-danger btn-sm" onClick={() => removeTesterFromStudy(study.id, t.id)}>
@@ -126,12 +126,12 @@ export const StudyDetailView = ({ study, onBack }) => {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {unenrolledTesters.map(t => (
-                  <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--bg-input)', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span style={{ fontSize: '1.5rem' }}>{t.avatar || '👤'}</span>
-                      <div>
-                        <div style={{ fontWeight: 700 }}>{t.name}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{t.email}</div>
+                  <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--bg-input)', borderRadius: '10px', border: '1px solid var(--border-color)', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: 0 }}>
+                      <span style={{ fontSize: '1.3rem', flexShrink: 0 }}>{t.avatar || '👤'}</span>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: '0.85rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.name}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{t.email}</div>
                       </div>
                     </div>
                     <button className="btn btn-primary btn-sm" onClick={() => assignTesterToStudy(study.id, t.id)}>
@@ -171,11 +171,11 @@ export const StudyDetailView = ({ study, onBack }) => {
           </div>
 
           {/* Color Matrix Timeline */}
-          <div className="card" style={{ marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Palette className="text-blue-400" /> Matrix & Timeline delle Scelte Cromatiche dei Tester
+          <div className="card" style={{ marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Palette className="text-blue-400" size={18} /> Matrix & Timeline delle Scelte Cromatiche dei Tester
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
               Evoluzione cronologica del colore selezionato dai soggetti a seguito delle sessioni di esercizio.
             </p>
 
@@ -201,7 +201,7 @@ export const StudyDetailView = ({ study, onBack }) => {
 
           {/* Submissions Data Table */}
           <div className="card">
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Registro Risposte Dettagliato</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Registro Risposte Dettagliato</h3>
             <div className="table-responsive">
               <table className="custom-table">
                 <thead>
@@ -227,7 +227,7 @@ export const StudyDetailView = ({ study, onBack }) => {
                       </td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: sub.selectedColor, border: '1px solid rgba(255,255,255,0.3)' }}></span>
+                          <span style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: sub.selectedColor, border: '1px solid rgba(255,255,255,0.3)', flexShrink: 0 }}></span>
                           <span>{sub.colorName}</span>
                         </div>
                       </td>
@@ -244,17 +244,17 @@ export const StudyDetailView = ({ study, onBack }) => {
       {/* TAB 3: CLINICAL NOTES */}
       {activeTab === 'notes' && (
         <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <div className="page-header" style={{ marginBottom: '1.25rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Note Cliniche & Osservazioni Riservate</h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Annotazioni riservate visibili solo ai ricercatori dello studio.</p>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Note Cliniche & Osservazioni Riservate</h3>
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Annotazioni riservate visibili solo ai ricercatori dello studio.</p>
             </div>
             <button className="btn btn-primary" onClick={() => setShowNoteModal(true)}>
               <PlusCircle size={18} /> Nuova Nota Clinica
             </button>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             {studyNotes.length === 0 ? (
               <div className="empty-state">
                 <FileText className="empty-icon" />
@@ -264,13 +264,13 @@ export const StudyDetailView = ({ study, onBack }) => {
             ) : (
               studyNotes.map(nte => (
                 <div key={nte.id} className="card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.4rem' }}>
                     <span className="status-pill active">{nte.category}</span>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{new Date(nte.timestamp).toLocaleString('it-IT')}</span>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{new Date(nte.timestamp).toLocaleString('it-IT')}</span>
                   </div>
-                  <p style={{ fontSize: '1rem', lineHeight: '1.5', marginBottom: '0.75rem' }}>"{nte.text}"</p>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Soggetto Riferito: <strong>{nte.testerName}</strong></span>
+                  <p style={{ fontSize: '0.95rem', lineHeight: '1.5', marginBottom: '0.75rem' }}>"{nte.text}"</p>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem' }}>
+                    <span>Soggetto: <strong>{nte.testerName}</strong></span>
                     <span>Autore: {nte.researcherName}</span>
                   </div>
                 </div>
@@ -285,7 +285,7 @@ export const StudyDetailView = ({ study, onBack }) => {
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h2 className="modal-title">Nuova Nota Clinica di Ricerca</h2>
+              <h2 className="modal-title">Nuova Nota Clinica</h2>
               <button className="modal-close" onClick={() => setShowNoteModal(false)}>×</button>
             </div>
             <form onSubmit={handleCreateNote}>
